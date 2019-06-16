@@ -6,9 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -30,15 +31,18 @@ public class ExcelReader {
 			Workbook wb = WorkbookFactory.create(inp);
 	        Sheet sheet = wb.getSheetAt(0);
 	        int rows = sheet.getPhysicalNumberOfRows(); // 해당 시트의 행의 개수
-	        for(int rowIndex =0; rowIndex < rows; rowIndex++) {
+	        for(int rowIndex =1; rowIndex < rows; rowIndex++) {
 	        	if(rowIndex ==1) {
 	        		num++;
 	        	}
 	        	Row row = sheet.getRow(rowIndex);
 	        	
 	        	int cells = row.getPhysicalNumberOfCells();
-	        	for(int cellIndex =0; cellIndex < cells; cellIndex++) {
-	        		Cell cell = row.getCell(cellIndex);
+	        	Iterator<Cell> c =row.cellIterator();
+	        	int cellIndex =0;
+	        	while(c.hasNext()) {
+	        		Cell cell = c.next();
+	        		cellIndex++;
 	        		if (cell == null)
 			            cell = row.createCell(cellIndex+1);
 	        		
@@ -48,7 +52,9 @@ public class ExcelReader {
 			        	values.add(t);
 			        }
 			        else{
-			        	values.add(cell.getStringCellValue().replaceAll(",", " ")); 
+			        	String t = cell.getStringCellValue().replaceAll("(\r\n|\r|\n|\n\r)", " ").replaceAll(",", " ");
+			        	//values.add(cell.getStringCellValue().replaceAll(",", " ")); 
+			        	values.add(t);
 			        }
 	        		}
 	        	}
@@ -75,7 +81,7 @@ public class ExcelReader {
 	        Workbook wb = WorkbookFactory.create(inp);
 	        Sheet sheet = wb.getSheetAt(0);
 	        int rows = sheet.getPhysicalNumberOfRows(); // 해당 시트의 행의 개수
-	        for(int rowIndex =0; rowIndex < rows; rowIndex++) {
+	        for(int rowIndex =1; rowIndex < rows; rowIndex++) {
 	        	if(rowIndex ==1) {
 	        		num++;
 	        	}
