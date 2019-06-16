@@ -6,20 +6,21 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import src.main.java.edu.handong.cess.ForArrayList;
 
 public class ExcelWriter {
-
-	
-	
-	public ExcelWriter(int rows, int num, String path,String outpath, ArrayList<String> values) {
-		String str = path.replaceAll("[^0-9]","");
+	String rename;
+	public ExcelWriter(int number,Map <String,HashMap<String, ForArrayList>> s,String outpath) {
 		FileOutputStream outputStream = null;
 		
-		if(num==1){
-			String rename = outpath.replace(".", "1.");
+		if(number==1){
+			rename = outpath.replace(".", "1.");
 			int n=0;
 			try {
-				
 				outputStream = new FileOutputStream(rename);
 				BufferedWriter writer = new BufferedWriter(
 						new OutputStreamWriter(outputStream));
@@ -43,19 +44,20 @@ public class ExcelWriter {
 				writer.write("\"제작자\n" + 
 						"(Copyright 소유처)\"");
 				writer.write("\n");
-				System.out.println("");
-				for(int i=1;i<rows;i++) {
-					
-					writer.write("000"+str);
+				//System.out.println("");
+				Set key = s.keySet();
+				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+		            String keyName = (String) iterator.next();
+				while(iterator.hasNext()) {
+					writer.write(keyName);
 					writer.write(",");
-					for(int j=0;j<7;j++) {
+					for(int i=0;i<s.get(keyName).size();i++) {
 						//while(values.get(n).equals("\n")) n++;
-						writer.write(values.get(n));
+						writer.write(s.get(keyName).get(keyName).getnForWa().get(i));
+						if(i/7==0) writer.write("\n");
 						writer.write(",");
-						n++;
-						if(n>=35) break;
 					}
-					writer.write("\n");
+				  }
 				}
 				writer.flush();
 				writer.close();
@@ -67,7 +69,7 @@ public class ExcelWriter {
 		else {
 			int n=5;
 			try {
-				String rename = outpath.replace(".", "2.");
+				rename = outpath.replace(".", "2.");
 				outputStream = new FileOutputStream(rename);
 				BufferedWriter writer = new BufferedWriter(
 						new OutputStreamWriter(outputStream));
@@ -84,17 +86,20 @@ public class ExcelWriter {
 				writer.write(",");
 				writer.write("자료가 나온 쪽번호");
 				writer.write("\n");
-				for(int i=0;i<rows;i++) {
-					writer.write("000"+str);
+				Set key = s.keySet();
+				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+		            String keyName = (String) iterator.next();
+				while(iterator.hasNext()) {
+					writer.write(keyName);
 					writer.write(",");
-					for(int j=0;j<5;j++) {
-						writer.write(values.get(n));
+					for(int i=0;i<s.get(keyName).size();i++) {
+						//while(values.get(n).equals("\n")) n++;
+						//System.out.println(s.get(keyName).get(keyName).getnForWa().get(0));
+						writer.write(s.get(keyName).get(keyName).getnForWa().get(i));
+						if(i/7==0) writer.write("\n");
 						writer.write(",");
-						n++;
-						//if(n==1) break;
-						if(n>=128) break;
 					}
-					writer.write("\n");
+				  }
 				}
 				writer.flush();
 				writer.close();
@@ -105,8 +110,6 @@ public class ExcelWriter {
 		}
 
 	}
-
-
 //이제 처음에 학번 넣고 돌리기만 하면 된다...
 // 
 }
