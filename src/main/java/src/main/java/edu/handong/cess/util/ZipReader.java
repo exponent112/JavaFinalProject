@@ -2,21 +2,23 @@ package src.main.java.edu.handong.cess.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 
 public class ZipReader {
-	public void run(String name,String outpath) {
+	ArrayList<String> values2;
+	public ArrayList<String> run(int number,String name,String outpath,String fName) {
 		//String path = args[0];
-		readFileInZip(name,outpath);
+		return readFileInZip(number,name,outpath,fName);
 	}
 
-	public void readFileInZip(String path,String outpath) {
-		String str = path.replaceAll("[^0-9]","");
+	public ArrayList<String> readFileInZip(int number,String path,String outpath,String fName) {
+		String str = fName.replaceAll("[^0-9]","");
 		// TODO Auto-generated method stub
-		ZipFile zipFile;
+		ZipFile zipFile=null;
 		try {
 			zipFile = new ZipFile(path);
 			Enumeration<? extends ZipArchiveEntry> entries = zipFile.getEntries();
@@ -26,17 +28,31 @@ public class ZipReader {
 		        InputStream stream = zipFile.getInputStream(entry);
 		    
 		        ExcelReader myReader = new ExcelReader();
-		        for(String value:myReader.getData(stream,path,outpath)) {
-		        	System.out.println(value);
-		        	System.out.println(1);
-		        }
+//		        for(String value:myReader.getData(stream,path,outpath,fName)) {
+//		        	//System.out.println(value);
+//		        	//System.out.println(1);
+//		        }
+		        values2 =  myReader.getData(number,stream,path,outpath,fName);
+		  
+		        
 		    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			errorOutput er = new errorOutput("000"+str);
 			e.printStackTrace();
 		}
-	}
 		
+		try {
+			try {
+				zipFile.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} finally {
+		}
+		
+		return values2;
+	}
 }
 
