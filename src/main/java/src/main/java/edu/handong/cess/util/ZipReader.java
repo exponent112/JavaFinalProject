@@ -9,7 +9,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 
 public class ZipReader {
-	ArrayList<String> values2;
+	public ArrayList<String> values2;
 	public ArrayList<String> run(int number,String name,String outpath,String fName) {
 		//String path = args[0];
 		return readFileInZip(number,name,outpath,fName);

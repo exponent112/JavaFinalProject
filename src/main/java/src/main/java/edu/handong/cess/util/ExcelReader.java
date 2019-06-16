@@ -80,10 +80,13 @@ public class ExcelReader {
 	        		}
 	        	}
 	        }
-	        //몇개 있는지랑 몇번째 파일인지랑 그리고 zip이름넘겨서 만들어 주자
-	        if(number ==1&&num==1) {
+	        System.out.println(num);
+	        if(number ==1) {
+	        	if(num==5)
 	        	return values;
 	        }
+	        //몇개 있는지랑 몇번째 파일인지랑 그리고 zip이름넘겨서 만들어 주자
+	        
 	        //ExcelWriter aWriter = new ExcelWriter(rows,num,path,outpath,values);
 		    } catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

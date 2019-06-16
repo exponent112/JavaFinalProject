@@ -13,7 +13,7 @@ import java.util.Set;
 import src.main.java.edu.handong.cess.ForArrayList;
 
 public class ExcelWriter {
-	String rename;
+	public String rename;
 	public ExcelWriter(int number,Map <String,HashMap<String, ForArrayList>> s,String outpath) {
 		FileOutputStream outputStream = null;
 		
@@ -48,15 +48,19 @@ public class ExcelWriter {
 				Set key = s.keySet();
 				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
 		            String keyName = (String) iterator.next();
-				while(iterator.hasNext()) {
-					writer.write(keyName);
-					writer.write(",");
-					for(int i=0;i<s.get(keyName).size();i++) {
-						//while(values.get(n).equals("\n")) n++;
-						writer.write(s.get(keyName).get(keyName).getnForWa().get(i));
-						if(i/7==0) writer.write("\n");
+		            int nuu=7;
+		            for(int j=0;j<s.get(keyName).size();j++){
+		            	keyName = keyName.replace(".zip", "");
+		            	writer.write(keyName);
 						writer.write(",");
+						
+						for(int i=0;i<7;i++) {
+						//while(values.get(n).equals("\n")) n++;
+							System.out.println(s.get(keyName).get(keyName).getnForWa().get(nuu));
+							writer.write(s.get(keyName).get(keyName).getnForWa().get(nuu));
+							writer.write(",");
 					}
+						writer.write("\n");
 				  }
 				}
 				writer.flush();
@@ -87,20 +91,6 @@ public class ExcelWriter {
 				writer.write("자료가 나온 쪽번호");
 				writer.write("\n");
 				Set key = s.keySet();
-				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
-		            String keyName = (String) iterator.next();
-				while(iterator.hasNext()) {
-					writer.write(keyName);
-					writer.write(",");
-					for(int i=0;i<s.get(keyName).size();i++) {
-						//while(values.get(n).equals("\n")) n++;
-						//System.out.println(s.get(keyName).get(keyName).getnForWa().get(0));
-						writer.write(s.get(keyName).get(keyName).getnForWa().get(i));
-						if(i/7==0) writer.write("\n");
-						writer.write(",");
-					}
-				  }
-				}
 				writer.flush();
 				writer.close();
 				
@@ -110,7 +100,6 @@ public class ExcelWriter {
 		}
 
 	}
-//이제 처음에 학번 넣고 돌리기만 하면 된다...
 // 
 }
 	
