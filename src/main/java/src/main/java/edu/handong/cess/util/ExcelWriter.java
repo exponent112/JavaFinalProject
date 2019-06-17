@@ -11,10 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import src.main.java.edu.handong.cess.ForArrayList;
+import src.main.java.edu.handong.cess.ListNode;
 
 public class ExcelWriter {
 	public String rename;
-	public ExcelWriter(int number,Map <String,HashMap<String, ForArrayList>> s,String outpath) {
+	public ExcelWriter(int number,ListNode s,String outpath) {
 		FileOutputStream outputStream = null;
 		
 		if(number==1){
@@ -44,32 +45,33 @@ public class ExcelWriter {
 				writer.write("\"제작자\n" + 
 						"(Copyright 소유처)\"");
 				writer.write("\n");
-				//System.out.println("");
-				Set key = s.keySet();
+				Set key = s.getData().keySet();
 				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
 		            String keyName = (String) iterator.next();
-		            int nuu=7;
-		            for(int j=0;j<s.get(keyName).size();j++){
-		            	keyName = keyName.replace(".zip", "");
-		            	writer.write(keyName);
-						writer.write(",");
-						
-						for(int i=0;i<7;i++) {
-						//while(values.get(n).equals("\n")) n++;
-							System.out.println(s.get(keyName).get(keyName).getnForWa().get(nuu));
-							writer.write(s.get(keyName).get(keyName).getnForWa().get(nuu));
+	            	writer.write(keyName.replace(".zip", ""));
+					writer.write(",");
+					int t=5;
+					while(t<s.getData().get(keyName).getnForWb().size()) {
+						writer.write(s.getData().get(keyName).getnForWb().get(t));
+						if(t%7==0) {
+		            		writer.write("\n");
+		            		writer.write(keyName.replace(".zip", ""));
 							writer.write(",");
+		            	}
+		            	else writer.write(",");
+		            	t++;
 					}
-						writer.write("\n");
-				  }
 				}
+		
 				writer.flush();
 				writer.close();
 				
 			}catch (IOException e) {
 				e.printStackTrace();
-			}//catch
+			//catch
 		}//if(a = 1)
+		}
+	
 		else {
 			int n=5;
 			try {
@@ -90,7 +92,23 @@ public class ExcelWriter {
 				writer.write(",");
 				writer.write("자료가 나온 쪽번호");
 				writer.write("\n");
-				Set key = s.keySet();
+				Set key = s.getData().keySet();
+				for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+		            String keyName = (String) iterator.next();
+	            	writer.write(keyName.replace(".zip", ""));
+					writer.write(",");
+					int t=5;
+					while(t<s.getData().get(keyName).getnForWa().size()) {
+						writer.write(s.getData().get(keyName).getnForWa().get(t));
+						if(t%7==0) {
+		            		writer.write("\n");
+		            		writer.write(keyName.replace(".zip", ""));
+							writer.write(",");
+		            	}
+		            	else writer.write(",");
+		            	t++;
+					}
+				}
 				writer.flush();
 				writer.close();
 				
@@ -102,4 +120,5 @@ public class ExcelWriter {
 	}
 // 
 }
+
 	

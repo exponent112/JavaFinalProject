@@ -37,8 +37,6 @@ public class ExcelReader {
 		try (InputStream inp = is) {
 		    //InputStream inp = new FileInputStream("통일한국개론자료수집양식(요약문).xlsx");
 			XSSFWorkbook wb = new XSSFWorkbook(inp);
-
-			//출처: https://javaslave.tistory.com/78 [전산쟁이 블로그]
 			XSSFSheet sheet = wb.getSheetAt(0);
 	        rows = sheet.getPhysicalNumberOfRows(); // 해당 시트의 행의 개수
 	        for(int rowIndex =1; rowIndex < rows; rowIndex++) {
@@ -58,7 +56,7 @@ public class ExcelReader {
                              values.add(cell.getCellFormula()+"");
                              break;
                          case XSSFCell.CELL_TYPE_NUMERIC:
-                        	 values.add(cell.getNumericCellValue()+"");
+                        	 values.add((int)cell.getNumericCellValue()+"");
                            
                              break;
                          case XSSFCell.CELL_TYPE_STRING:
@@ -74,12 +72,11 @@ public class ExcelReader {
 	        		}
 	        	}
 	        }
-	        System.out.println(num);
-	        if(number ==1) {
-	        	if(num==5)
-	        	return values;
-	        }
-	        //몇개 있는지랑 몇번째 파일인지랑 그리고 zip이름넘겨서 만들어 주자
+	        //System.out.println(num+number);
+	        if(number==1)
+	        	if(num%2==1) return values;
+	        //System.out.println("df"+num+"+"+number);
+	     
 	        
 	        //ExcelWriter aWriter = new ExcelWriter(rows,num,path,outpath,values);
 		    } catch (FileNotFoundException e) {

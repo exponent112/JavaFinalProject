@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.cli.CommandLine;
@@ -34,7 +36,7 @@ public class JavaFinalProject {
 		for(File file : fileList) {
 			if(file.isFile()) {
 				String fileName = file.getName();
-				System.out.println(fileName);
+				//System.out.println(fileName);
 				if(fileName.equals(".DS_Store")) continue;
 				ChatThread1 chatthread = new ChatThread1(fileName);
 				chatthread.start();
@@ -45,10 +47,26 @@ public class JavaFinalProject {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				//System.out.println(chatthread.forW.get(chatthread.fName).getnForWa().get(1));
 			}	
 		}
 		Map <String,HashMap<String, ForArrayList>> sortedM = new TreeMap <String,HashMap<String, ForArrayList>>(nm); 
-		ExcelWriter op = new ExcelWriter(1,sortedM,resultPath);
+
+		Set key = sortedM.keySet();
+		int nnn =0;
+		ListNode ln=null;
+		for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+            String keyName = (String) iterator.next();
+            if(nnn==0) {
+            	ln = new ListNode(sortedM.get(keyName),null);
+            	ln.setCurrent(ln);
+            }
+            else {
+            	ln.insertNodeAfterCurrent(sortedM.get(keyName));
+            }
+            nnn++;
+		}
+		ExcelWriter op = new ExcelWriter(1,ln,resultPath);
 	}
 	
 	
@@ -62,7 +80,7 @@ public class JavaFinalProject {
 		for(File file : fileList) {
 			if(file.isFile()) {
 				String fileName = file.getName();
-				System.out.println(fileName);
+				//System.out.println(fileName);
 				if(fileName.equals(".DS_Store")) continue;
 				ChatThread chatthread = new ChatThread(fileName);
 				chatthread.start();
@@ -77,7 +95,22 @@ public class JavaFinalProject {
 			}	
 		}
 		Map <String,HashMap<String, ForArrayList>> sortedM = new TreeMap <String,HashMap<String, ForArrayList>>(nm); 
-		ExcelWriter op = new ExcelWriter(2,sortedM,resultPath);
+		
+		Set key = sortedM.keySet();
+		int nnn =0;
+		ListNode ln=null;
+		for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+            String keyName = (String) iterator.next();
+            if(nnn==0) {
+            	ln = new ListNode(sortedM.get(keyName),null);
+            	ln.setCurrent(ln);
+            }
+            else {
+            	ln.insertNodeAfterCurrent(sortedM.get(keyName));
+            }
+            nnn++;
+		}
+		ExcelWriter op = new ExcelWriter(2,ln,resultPath);
 	}
 	
 	class ChatThread1 extends Thread{
@@ -108,10 +141,11 @@ public class JavaFinalProject {
 		
 		public void run() {
 			ZipReader zipR =new ZipReader();
-			nForWrite = zipR.run(number,dataPath+"/"+fName,resultPath,fName);
+			nForWrite = zipR.run(1,dataPath+"/"+fName,resultPath,fName);
 			ForArrayList a = new ForArrayList();
-			//System.out.println(nForWrite.get(1));
-			a.setnForWa(nForWrite);
+			for(int i=0;i<nForWrite.size();i++)
+				//System.out.println(fName+nForWrite.get(i));
+			a.setnForWb(nForWrite);
 			forW.put(fName, a);
 			
 			//ExcelWriter(int rows, int num, String path,String outpath, ArrayList<String> values)
@@ -152,7 +186,7 @@ public class JavaFinalProject {
 			ForArrayList a = new ForArrayList();
 			//System.out.println(nForWrite.get(1));
 			a.setnForWa(nForWrite);
-			System.out.println(a.getnForWa().get(1));
+			//System.out.println(a.getnForWa().get(1));
 			forW.put(fName, a);
 			
 		}
