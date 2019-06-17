@@ -45,14 +45,10 @@ public class JavaFinalProject {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//System.out.println("fffffffffff");
-				//System.out.println(chatthread.forW.get(chatthread.fName).getnForWa().get(1));
 			}	
 		}
 		Map <String,HashMap<String, ForArrayList>> sortedM = new TreeMap <String,HashMap<String, ForArrayList>>(nm); 
 		ExcelWriter op = new ExcelWriter(1,sortedM,resultPath);
-		
-		
 	}
 	
 	
@@ -82,8 +78,6 @@ public class JavaFinalProject {
 		}
 		Map <String,HashMap<String, ForArrayList>> sortedM = new TreeMap <String,HashMap<String, ForArrayList>>(nm); 
 		ExcelWriter op = new ExcelWriter(2,sortedM,resultPath);
-		
-		
 	}
 	
 	class ChatThread1 extends Thread{

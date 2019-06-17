@@ -36,8 +36,6 @@ public class ExcelReader {
 		ArrayList<String> values = new ArrayList<String>();
 		try (InputStream inp = is) {
 		    //InputStream inp = new FileInputStream("통일한국개론자료수집양식(요약문).xlsx");
-			
-			//Workbook wb = new XSSFWorkbook(inp);
 			XSSFWorkbook wb = new XSSFWorkbook(inp);
 
 			//출처: https://javaslave.tistory.com/78 [전산쟁이 블로그]
@@ -70,11 +68,7 @@ public class ExcelReader {
                          case XSSFCell.CELL_TYPE_BLANK:
                         	 values.add(" ");
                              break;
-//                         case HSSFCell.CELL_TYPE_ERROR:
-//                             value = curCell.getErrorCellValue()+"";
-//                             break;
                          default:
-                            // value = new String();
                              break;
                          }
 	        		}
